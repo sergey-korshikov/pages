@@ -722,33 +722,35 @@ body {
 }
 
 .footerPage {
-  gap: 40px 70px;
-  display: flex;
-  flex-wrap: wrap;
-  padding: 40px 80px;
-  border-radius: 40px;
+  display: grid;
+  grid-gap: 40px;
+  grid-template-columns: repeat(4, 1fr);
   background: var(--color-white);
+  border-radius: 40px;
+  padding: 40px 80px;
 }
 @media screen and (max-width: 1259px) {
   .footerPage {
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 32px 24px;
     padding: 40px;
-    gap: 40px;
   }
 }
-@media screen and (max-width: 1039px) {
+@media screen and (max-width: 999px) {
   .footerPage {
-    gap: 32px 24px;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 599px) {
   .footerPage {
+    grid-template-columns: 100%;
     border-radius: 32px;
     padding: 32px 24px;
   }
 }
 
 .footerPage__menu {
-  flex: 1;
+  grid-column: 2 span;
 }
 .footerPage__menu ul {
   -moz-column-count: 2;
@@ -763,6 +765,7 @@ body {
   margin-bottom: 0;
 }
 .footerPage__menu a {
+  font-weight: 600;
   color: var(--color-text);
 }
 @media screen and (min-width: 768px) {
@@ -770,97 +773,48 @@ body {
     color: var(--color-main);
   }
 }
-@media screen and (max-width: 1259px) {
-  .footerPage__menu ul {
-    -moz-column-gap: 40px;
-         column-gap: 40px;
+@media screen and (max-width: 999px) {
+  .footerPage__menu {
+    grid-column: auto;
   }
-}
-@media screen and (max-width: 1039px) {
   .footerPage__menu ul {
     -moz-column-count: auto;
          column-count: auto;
   }
 }
-@media screen and (max-width: 499px) {
-  .footerPage__menu {
-    flex: none;
-    width: 100%;
-  }
-}
-
-.footerPage__columns {
-  flex: 1;
-  gap: 70px;
-  display: flex;
-  flex-wrap: wrap;
-}
-@media screen and (max-width: 1259px) {
-  .footerPage__columns {
-    gap: 40px;
-  }
-}
-@media screen and (max-width: 1039px) {
-  .footerPage__columns {
-    gap: 32px;
-  }
-}
-@media screen and (max-width: 499px) {
-  .footerPage__columns {
-    flex: none;
-    width: 100%;
-  }
-}
 
 .footerPage__column {
-  flex: 1;
+  grid-column: 4/5;
 }
-@media screen and (max-width: 1039px) {
+@media screen and (max-width: 1259px) {
   .footerPage__column {
-    flex: none;
-    width: 100%;
+    grid-column: auto;
   }
 }
-@media screen and (max-width: 499px) {
-  .footerPage__column_contacts {
+@media screen and (max-width: 599px) {
+  .footerPage__column {
     display: grid;
     grid-gap: 16px;
     grid-template-columns: repeat(2, 1fr);
   }
-  .footerPage__column_contacts .footerPage__title {
+  .footerPage__column .footerPage__title {
     grid-column: 2 span;
   }
 }
 
 .footerPage__title {
   font-weight: 600;
+  color: var(--color-text);
+}
+@media screen and (min-width: 768px) {
+  .footerPage__title:hover {
+    color: var(--color-main);
+  }
 }
 
 .footerPage__subtitle {
   font-weight: 600;
   margin-bottom: 8px;
-}
-
-.footerPage__smallLinks {
-  margin-top: 16px;
-}
-.footerPage__smallLinks li {
-  display: flex;
-  margin-bottom: 8px;
-}
-.footerPage__smallLinks li:last-child {
-  margin-bottom: 0;
-}
-.footerPage__smallLinks a {
-  font-size: 12px;
-  line-height: 1.5;
-  font-weight: 500;
-  color: var(--color-text);
-}
-@media screen and (min-width: 768px) {
-  .footerPage__smallLinks a:hover {
-    color: var(--color-main);
-  }
 }
 
 .footerPage__contacts {
@@ -875,7 +829,7 @@ body {
 .footerPage__contacts p:last-child {
   margin-bottom: 0;
 }
-@media screen and (max-width: 499px) {
+@media screen and (max-width: 599px) {
   .footerPage__contacts {
     margin-top: 0;
   }
@@ -892,13 +846,28 @@ body {
   flex-wrap: wrap;
   align-items: center;
   border-top: 1px solid var(--color-border);
+  grid-column: 4 span;
   padding-top: 40px;
-  width: 100%;
+}
+@media screen and (max-width: 1259px) {
+  .footerPage__bottom {
+    grid-column: 3 span;
+  }
+}
+@media screen and (max-width: 999px) {
+  .footerPage__bottom {
+    grid-column: 2 span;
+  }
 }
 @media screen and (max-width: 767px) {
   .footerPage__bottom {
     padding-top: 32px;
     flex-direction: column;
+  }
+}
+@media screen and (max-width: 599px) {
+  .footerPage__bottom {
+    grid-column: auto;
   }
 }
 
