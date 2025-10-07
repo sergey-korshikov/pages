@@ -353,6 +353,7 @@ body {
 }
 
 .customButton {
+  border: none;
   font-size: 16px;
   font-weight: 600;
   line-height: 20px;
@@ -737,12 +738,14 @@ body {
 }
 
 .headerPage__burger {
+  border: none;
   width: 48px;
   height: 48px;
   padding: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: transparent;
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
   border-radius: 50%;
   margin-left: 8px;
@@ -1065,12 +1068,14 @@ body {
 }
 
 .languageSelect__button {
+  border: none;
   width: 48px;
   height: 48px;
   padding: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: transparent;
   transition: background-color 0.2s ease-in-out;
   border-radius: 50%;
   position: relative;
@@ -1234,8 +1239,11 @@ body {
 }
 
 .navMenu__button {
+  padding: 0;
+  border: none;
   display: flex;
   align-items: center;
+  background-color: transparent;
   transition: color 0.2s ease-in-out;
   color: var(--color-text);
   font-weight: 600;
