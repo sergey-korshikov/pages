@@ -352,6 +352,67 @@ body {
   overflow: hidden;
 }
 
+a#backToTop {
+  right: 40px;
+  bottom: 140px;
+  background: var(--color-white);
+  transition: background-color 0.2s ease-in-out, opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+  box-shadow: 0 4px 10px 4px rgba(0, 0, 0, 0.1) !important;
+  border-radius: 50% !important;
+  height: 48px;
+  width: 48px;
+}
+a#backToTop i {
+  font-size: 20px;
+  filter: grayscale(1);
+}
+a#backToTop:focus {
+  outline: 2px solid var(--color-main);
+  outline-offset: 3px;
+}
+@media screen and (min-width: 768px) {
+  a#backToTop:hover {
+    background: var(--color-main-hover-light);
+  }
+  a#backToTop:active {
+    background: var(--color-main-active-light);
+  }
+}
+a#backToTop:active {
+  background: var(--color-main-active-light);
+}
+a#backToTop:disabled {
+  cursor: default;
+  background: var(--color-white);
+  box-shadow: none !important;
+}
+a#backToTop:disabled i {
+  opacity: 0.5;
+}
+@media screen and (max-width: 1439px) {
+  a#backToTop {
+    transform: translate(50%, 50%);
+  }
+}
+@media screen and (max-width: 1259px) {
+  a#backToTop {
+    width: 40px;
+    height: 40px;
+    transform: none;
+    bottom: 120px;
+    right: 24px;
+  }
+  a#backToTop i {
+    font-size: 18px;
+  }
+}
+@media screen and (max-width: 767px) {
+  a#backToTop {
+    bottom: 80px;
+    right: 16px;
+  }
+}
+
 .customButton {
   border: none;
   font-size: 16px;
@@ -1862,6 +1923,7 @@ body {
 }
 
 .frontTypes__icon {
+  min-width: 24px;
   margin-right: 12px;
 }
 .frontTypes__icon_orange {
@@ -2070,12 +2132,12 @@ body {
 .frontNews {
   display: grid;
   grid-gap: 24px;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, calc((100% - 48px) / 3));
 }
 @media screen and (max-width: 1259px) {
   .frontNews {
-    grid-template-columns: repeat(2, 1fr);
     grid-gap: 16px;
+    grid-template-columns: repeat(2, calc((100% - 16px) / 2));
   }
 }
 @media screen and (max-width: 767px) {
@@ -2247,7 +2309,6 @@ body {
   margin: 0;
   gap: 16px;
   display: flex;
-  flex-wrap: wrap;
   font-size: 20px;
   font-weight: 700;
   color: var(--color-text);
@@ -2315,6 +2376,11 @@ body {
   .frontQuestions__question {
     gap: 8px;
     font-size: 18px;
+  }
+}
+@media screen and (max-width: 479px) {
+  .frontQuestions__question {
+    word-break: break-word;
   }
 }
 
