@@ -167,6 +167,7 @@ template {
   --color-main-hover-light: #f4f7ff;
   --color-main-active-light: #DEE9FF;
   --color-other: #FF862E;
+  --color-error: #ee0000;
   --color-text: #3c3c3c;
   --color-placeholder: #616161;
   --color-light: #f4f5f7;
@@ -1449,15 +1450,25 @@ a#backToTop:disabled i {
   line-height: 20px;
   font-weight: 400;
 }
-.formInput:focus {
-  outline: none !important;
-  border-color: var(--color-main);
-}
 .formInput::-moz-placeholder {
   color: var(--color-placeholder);
 }
 .formInput::placeholder {
   color: var(--color-placeholder);
+}
+.formInput:focus {
+  outline: none !important;
+  border-color: var(--color-main);
+}
+.formInput.error {
+  border-color: var(--color-error);
+}
+
+.formInputError {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--color-error);
+  margin-top: 4px;
 }
 
 .formAgreement {
@@ -1488,8 +1499,37 @@ a#backToTop:disabled i {
 }
 
 .formResult {
-  margin-top: 16px;
+  font-size: 14px;
+  line-height: 20px;
   color: var(--color-placeholder);
+  margin-top: 16px;
+}
+.formResult._success {
+  color: var(--color-other);
+}
+.formResult._error {
+  color: var(--color-error);
+}
+.formResult a {
+  text-decoration: none;
+  color: var(--color-main);
+  transition: color 0.2s ease-in-out;
+}
+@media screen and (min-width: 768px) {
+  .formResult a:hover {
+    color: var(--color-main-hover);
+  }
+}
+.formResult a:active {
+  color: var(--color-main-active);
+}
+.formResult a:disabled {
+  color: var(--color-grey);
+}
+.formResult a:focus {
+  text-decoration: none;
+  outline: 2px solid var(--color-main);
+  outline-offset: 3px;
 }
 
 .frontBanner {

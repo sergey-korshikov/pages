@@ -390,16 +390,78 @@
   };
 
   // scripts/components/utils/forms.js
+  var viewResult = (form, data = "", isSuccess = false) => {
+    var _a;
+    if (data && data.trim()) {
+      form.insertAdjacentHTML("beforeend", '<div class="formResult ' + (isSuccess ? "_success" : "_error") + '" data-result>' + data.trim() + "</div>");
+      if (isSuccess) {
+        form.classList.add("success");
+      } else {
+        form.classList.add("error");
+      }
+    } else {
+      (_a = form.querySelector("[data-result]")) == null ? void 0 : _a.remove();
+      form.classList.remove("success", "error");
+    }
+  };
+  var checkSubmit = (form) => {
+    const submitButton = form.querySelector('[type="submit"]');
+    const hasError = !!form.querySelector("input.error");
+    if (hasError) {
+      submitButton.disabled = true;
+    } else {
+      submitButton.disabled = false;
+    }
+  };
+  var viewErrorInput = (input, errorValue) => {
+    input.classList.add("error");
+    input.parentElement.insertAdjacentHTML("beforeend", '<div class="formInputError" data-error>' + errorValue + "</div>");
+  };
+  var validateForm = (form) => {
+    var _a;
+    const requiredInputs = form == null ? void 0 : form.querySelectorAll("input[data-required]");
+    let result = true;
+    requiredInputs.forEach((input) => {
+      const value = input.value.trim();
+      const type = input.getAttribute("data-required");
+      if (!value) {
+        result = false;
+        viewErrorInput(input, "\u042D\u0442\u043E \u043F\u043E\u043B\u0435 \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u043E \u043A&nbsp;\u0437\u0430\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u044E");
+      }
+      if (value && type === "email") {
+        const regex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+        if (!regex.test(value)) {
+          result = false;
+          viewErrorInput(input, "\u0417\u0430\u043F\u043E\u043B\u043D\u0438\u0442\u0435 \u043F\u043E\u043B\u0435 \u0432&nbsp;\u0432\u0438\u0434\u0435 _____@____.__");
+        }
+      }
+    });
+    if (!result) {
+      (_a = form.querySelector("input.error")) == null ? void 0 : _a.focus();
+    }
+    return result;
+  };
   var defaultForm = (form) => {
+    const submitButton = form.querySelector('[type="submit"]');
     if (form.classList.contains("init"))
       return;
     form.classList.add("init");
-    const submitButton = form.querySelector('[type="submit"]');
+    form.addEventListener("input", (e) => {
+      const input = e.target;
+      const errors = input.parentElement.querySelectorAll("[data-error]");
+      input.classList.remove("error");
+      errors.forEach((error) => error.remove());
+      checkSubmit(form);
+    });
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       if (form.classList.contains("loading"))
         return;
-      result();
+      viewResult(form);
+      if (!validateForm(form)) {
+        checkSubmit(form);
+        return;
+      }
       const data = new FormData(form);
       const url = form.getAttribute("action");
       const method = form.getAttribute("method") || "POST";
@@ -411,27 +473,19 @@
       }).then((response) => response.json()).then((data2) => {
         if (data2.status === "ok") {
           form.reset();
-          result(data2.message || "\u0414\u0430\u043D\u043D\u044B\u0435 \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u044B.");
+          viewResult(form, data2.message || "\u0414\u0430\u043D\u043D\u044B\u0435 \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u044B.", true);
         } else if (data2.status === "error") {
-          result(data2.message || "\u041F\u0440\u043E\u0438\u0437\u043E\u0448\u043B\u0430 \u043E\u0448\u0438\u0431\u043A\u0430 \u043F\u0440\u0438 \u043E\u0431\u0440\u0430\u0431\u043E\u0442\u043A\u0435 \u0437\u0430\u043F\u0440\u043E\u0441\u0430! <br> \u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u043F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435 \u0434\u0430\u043D\u043D\u044B\u0435 \u0438\u043B\u0438 \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u043F\u043E\u0437\u0436\u0435.");
+          viewResult(form, data2.message || "\u041F\u0440\u043E\u0438\u0437\u043E\u0448\u043B\u0430 \u043E\u0448\u0438\u0431\u043A\u0430 \u043F\u0440\u0438 \u043E\u0431\u0440\u0430\u0431\u043E\u0442\u043A\u0435 \u0437\u0430\u043F\u0440\u043E\u0441\u0430! <br> \u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u043F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435 \u0434\u0430\u043D\u043D\u044B\u0435 \u0438\u043B\u0438 \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u043F\u043E\u0437\u0436\u0435.");
         } else {
-          result(data2.message || "\u041F\u0440\u043E\u0438\u0437\u043E\u0448\u043B\u0430 \u043D\u0435\u043F\u0440\u0435\u0434\u0432\u0438\u0434\u0435\u043D\u043D\u0430\u044F \u043E\u0448\u0438\u0431\u043A\u0430! <br> \u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u043F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435 \u0434\u0430\u043D\u043D\u044B\u0435 \u0438\u043B\u0438 \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u043F\u043E\u0437\u0436\u0435.");
+          viewResult(form, data2.message || "\u041F\u0440\u043E\u0438\u0437\u043E\u0448\u043B\u0430 \u043D\u0435\u043F\u0440\u0435\u0434\u0432\u0438\u0434\u0435\u043D\u043D\u0430\u044F \u043E\u0448\u0438\u0431\u043A\u0430! <br> \u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u043F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435 \u0434\u0430\u043D\u043D\u044B\u0435 \u0438\u043B\u0438 \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u043F\u043E\u0437\u0436\u0435.");
         }
       }).catch((err) => {
-        result("\u041F\u0440\u043E\u0438\u0437\u043E\u0448\u043B\u0430 \u043E\u0448\u0438\u0431\u043A\u0430 \u043F\u0440\u0438 \u043E\u0442\u043F\u0440\u0430\u0432\u043A\u0435 \u0437\u0430\u043F\u0440\u043E\u0441\u0430! <br> \u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u043F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435 \u0438\u043D\u0442\u0435\u0440\u043D\u0435\u0442 \u0441\u043E\u0435\u0434\u0438\u043D\u0435\u043D\u0438\u0435 \u0438\u043B\u0438 \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u043F\u043E\u0437\u0436\u0435.");
+        viewResult(form, "\u041F\u0440\u043E\u0438\u0437\u043E\u0448\u043B\u0430 \u043E\u0448\u0438\u0431\u043A\u0430 \u043F\u0440\u0438 \u043E\u0442\u043F\u0440\u0430\u0432\u043A\u0435 \u0437\u0430\u043F\u0440\u043E\u0441\u0430! <br> \u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u043F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435 \u0438\u043D\u0442\u0435\u0440\u043D\u0435\u0442 \u0441\u043E\u0435\u0434\u0438\u043D\u0435\u043D\u0438\u0435 \u0438\u043B\u0438 \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u043F\u043E\u0437\u0436\u0435.");
         console.error(err);
       }).then(() => {
         form.classList.remove("loading");
         submitButton == null ? void 0 : submitButton.classList.remove("loading");
       });
-      function result(data2 = "") {
-        var _a;
-        if (data2 && data2.trim()) {
-          form.insertAdjacentHTML("beforeend", '<div class="formResult" data-result>' + data2.trim() + "</div>");
-        } else {
-          (_a = form.querySelector("[data-result]")) == null ? void 0 : _a.remove();
-        }
-      }
     });
   };
   var defaultForms = () => {
