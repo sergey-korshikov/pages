@@ -191,6 +191,36 @@
   // scripts/components/common/index.js
   var import_focus_visible = __toESM(require_focus_visible(), 1);
 
+  // scripts/components/utils/catalog.js
+  var catalogControl = () => {
+    document.querySelectorAll(".js-catalog-control").forEach(init);
+    function init(catalog) {
+      catalog.addEventListener("click", (e) => {
+        var _a;
+        const pagination = catalog.querySelector("[data-pagination]");
+        const button = (_a = e.target) == null ? void 0 : _a.closest("[data-pagination-more]");
+        const url = button == null ? void 0 : button.getAttribute("data-pagination-more");
+        if (!url || (button == null ? void 0 : button.classList.contains("loading")))
+          return;
+        button.classList.add("loading");
+        fetch(url, {
+          method: "GET"
+        }).then((response) => response.text()).then((html) => {
+          if (pagination) {
+            pagination.remove();
+          }
+          if (html.trim()) {
+            catalog.insertAdjacentHTML("beforeend", html);
+          }
+        }).catch((err) => {
+          console.error(err);
+        }).then(() => {
+          button.classList.remove("loading");
+        });
+      });
+    }
+  };
+
   // scripts/components/utils/toggleBlock.js
   var initToggleBlock = (button) => {
     const id = button.getAttribute("data-id");
@@ -541,6 +571,7 @@
     };
     closeElements();
     scrollById();
+    catalogControl();
     window.project.defaultElements(e);
   };
 
