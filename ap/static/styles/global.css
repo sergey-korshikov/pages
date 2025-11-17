@@ -3731,6 +3731,7 @@ a#backToTop:disabled i {
   display: flex;
   align-items: center;
   color: var(--color-text);
+  line-height: 1.25;
   font-weight: 700;
   font-size: 20px;
 }
