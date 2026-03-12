@@ -5597,6 +5597,18 @@ a#backToTop:disabled i {
   }
 }
 
+.resultDetails__info {
+  padding: 0;
+  border: none;
+  background: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.resultDetails__info:focus {
+  outline: 2px solid var(--color-blue);
+  outline-offset: 3px;
+}
+
 .resultDetails__addText {
   position: absolute;
   left: 50%;
