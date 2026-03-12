@@ -3,8 +3,22 @@
   var __defProp = Object.defineProperty;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
   var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __getOwnPropSymbols = Object.getOwnPropertySymbols;
   var __getProtoOf = Object.getPrototypeOf;
   var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __propIsEnum = Object.prototype.propertyIsEnumerable;
+  var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+  var __spreadValues = (a8, b3) => {
+    for (var prop in b3 || (b3 = {}))
+      if (__hasOwnProp.call(b3, prop))
+        __defNormalProp(a8, prop, b3[prop]);
+    if (__getOwnPropSymbols)
+      for (var prop of __getOwnPropSymbols(b3)) {
+        if (__propIsEnum.call(b3, prop))
+          __defNormalProp(a8, prop, b3[prop]);
+      }
+    return a8;
+  };
   var __commonJS = (cb, mod) => function __require() {
     return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
   };
@@ -230,7 +244,7 @@
             });
           };
         };
-        var lozad3 = function() {
+        var lozad5 = function() {
           var selector = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : ".lozad";
           var options = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
           var _defaultConfig$option = _extends({}, defaultConfig, options), rootMargin = _defaultConfig$option.rootMargin, threshold = _defaultConfig$option.threshold, load = _defaultConfig$option.load;
@@ -259,7 +273,7 @@
             }
           };
         };
-        return lozad3;
+        return lozad5;
       });
     }
   });
@@ -4102,6 +4116,27 @@
     }(i9, s11, l8);
   } };
 
+  // scripts/components/utils/basic/scrollToTarget.js
+  var import_lozad = __toESM(require_lozad(), 1);
+  var scrollToTarget = () => {
+    (0, import_lozad.default)(".js-scroll-to-target", {
+      load: init
+    }).observe();
+    function init(button) {
+      const href = button.getAttribute("data-href") || button.getAttribute("href");
+      const target = href && document.querySelector(href);
+      if (!target)
+        return;
+      button.addEventListener("click", (e11) => {
+        e11.preventDefault();
+        window.scrollBy({
+          top: target.getBoundingClientRect().top - 150,
+          behavior: "smooth"
+        });
+      });
+    }
+  };
+
   // scripts/components/utils/toggleBlock.js
   var initToggleBlock = (button) => {
     const id = button.getAttribute("data-id");
@@ -4404,7 +4439,7 @@
   };
 
   // scripts/components/utils/basic/copyUrlPage.js
-  var import_lozad = __toESM(require_lozad(), 1);
+  var import_lozad2 = __toESM(require_lozad(), 1);
 
   // scripts/components/helpers/showMessage.js
   var showMessage = (value, time = 5e3) => {
@@ -4435,7 +4470,7 @@
 
   // scripts/components/utils/basic/copyUrlPage.js
   var copyUrlPage = () => {
-    (0, import_lozad.default)(".js-copy-url-page", {
+    (0, import_lozad2.default)(".js-copy-url-page", {
       load: init
     }).observe();
     function init(button) {
@@ -4454,12 +4489,70 @@
     }
   };
 
+  // scripts/components/utils/basic/copyString.js
+  var import_lozad3 = __toESM(require_lozad(), 1);
+
+  // scripts/components/helpers/cookie.js
+  var cookie = {
+    get: (name) => {
+      let matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1") + "=([^;]*)"));
+      return matches ? decodeURIComponent(matches[1]) : void 0;
+    },
+    set: (name, value, options = {}) => {
+      options = __spreadValues({
+        path: "/"
+      }, options);
+      if (options.expires instanceof Date) {
+        options.expires = options.expires.toUTCString();
+      }
+      let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+      for (let optionKey in options) {
+        updatedCookie += "; " + optionKey;
+        let optionValue = options[optionKey];
+        if (optionValue !== true) {
+          updatedCookie += "=" + optionValue;
+        }
+      }
+      document.cookie = updatedCookie;
+    }
+  };
+
+  // scripts/components/utils/basic/copyString.js
+  var copyString = () => {
+    (0, import_lozad3.default)(".js-copy-string", {
+      load: init
+    }).observe();
+    function init(button) {
+      button.addEventListener("click", (e11) => {
+        e11.preventDefault();
+        const value = (button == null ? void 0 : button.value) || button.getAttribute("data-value");
+        const textResult = button.getAttribute("data-text") || "\u0421\u0441\u044B\u043B\u043A\u0430 \u0441\u043A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u043D\u0430";
+        const dataCopiedCookie = button.getAttribute("data-copied-cookie");
+        const objCopiedCookie = dataCopiedCookie ? JSON.parse(dataCopiedCookie) : {};
+        if (navigator.clipboard && value) {
+          navigator.clipboard.writeText(value).then(() => {
+            showMessage(textResult);
+            if (objCopiedCookie.name && objCopiedCookie.value) {
+              cookie.set(objCopiedCookie.name, objCopiedCookie.value, { path: "/", "max-age": 60 * 60 * 24 * 30 });
+            }
+          }).catch(() => {
+            showMessage("\u041E\u0448\u0438\u0431\u043A\u0430 \u043F\u0440\u0438 \u043A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0438, \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u0435\u0449\u0451 \u0440\u0430\u0437", 2e3);
+          });
+        } else {
+          showMessage("\u041E\u0448\u0438\u0431\u043A\u0430 \u043F\u0440\u0438 \u043A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0438, \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u0435\u0449\u0451 \u0440\u0430\u0437", 2e3);
+        }
+      });
+    }
+  };
+
   // scripts/components/common/default/defaultElements.js
   var defaultElements = (e11) => {
+    scrollToTarget();
     defaultToggleBlocks();
     defaultAccordions();
     defaultForms();
     copyUrlPage();
+    copyString();
   };
 
   // scripts/components/helpers/closeElements.js
@@ -4497,7 +4590,7 @@
   };
 
   // scripts/components/utils/setLike.js
-  var import_lozad2 = __toESM(require_lozad(), 1);
+  var import_lozad4 = __toESM(require_lozad(), 1);
 
   // scripts/components/helpers/basic.js
   var import_wnumb = __toESM(require_wNumb(), 1);
@@ -4515,7 +4608,7 @@
 
   // scripts/components/utils/setLike.js
   var setLike = () => {
-    (0, import_lozad2.default)(".js-set-like", {
+    (0, import_lozad4.default)(".js-set-like", {
       load: init
     }).observe();
     function init(button) {
@@ -4537,7 +4630,7 @@
           } else {
             button.classList.remove("active");
           }
-          if (Number.isFinite(data2.qty)) {
+          if (Number.isFinite(data2.qty) && span) {
             span.innerHTML = getNumberFormat(data2.qty);
           }
         }).catch((err) => {
@@ -4577,6 +4670,185 @@
         });
       });
     }
+  };
+
+  // scripts/components/utils/quiz.js
+  var defaultQuiz = (block) => {
+    if (!block) {
+      console.warn("quiz block not found!");
+      return;
+    }
+    const steps = block.querySelectorAll("[data-step]");
+    let currentStep = 0;
+    steps.forEach((step) => {
+      const btnNext = step.querySelector('[type="submit"]');
+      step.addEventListener("input", () => {
+        if (!btnNext)
+          return;
+        if (validation(step)) {
+          btnNext.disabled = false;
+        } else {
+          btnNext.disabled = true;
+        }
+      });
+      step.addEventListener("submit", (e11) => {
+        e11.preventDefault();
+        if (validation(step)) {
+          currentStep++;
+          steps.forEach((step2) => {
+            const number = step2.getAttribute("data-step");
+            if (number == currentStep) {
+              step2.classList.add("active");
+            } else {
+              step2.classList.remove("active");
+            }
+          });
+        }
+      });
+    });
+    function validation(step) {
+      const trueOption = step.querySelector("[data-true]");
+      if (!trueOption || trueOption.checked) {
+        return true;
+      }
+      return false;
+    }
+  };
+
+  // scripts/components/demo-check.js
+  var request = ({ url, options = {}, onSuccess, onError, onEnd }) => {
+    fetch(url, options).then((response) => response.json()).then((data) => {
+      if (data.status === "ok") {
+        onSuccess == null ? void 0 : onSuccess(data);
+      } else if (data.status === "error") {
+        showMessage(data.message || "\u041F\u0440\u043E\u0438\u0437\u043E\u0448\u043B\u0430 \u043E\u0448\u0438\u0431\u043A\u0430 \u043F\u0440\u0438 \u043E\u0431\u0440\u0430\u0431\u043E\u0442\u043A\u0435 \u0437\u0430\u043F\u0440\u043E\u0441\u0430! <br> \u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u043F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435 \u0434\u0430\u043D\u043D\u044B\u0435 \u0438\u043B\u0438 \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u043F\u043E\u0437\u0436\u0435.");
+        onError == null ? void 0 : onError();
+      } else {
+        showMessage(data.message || "\u041F\u0440\u043E\u0438\u0437\u043E\u0448\u043B\u0430 \u043D\u0435\u043F\u0440\u0435\u0434\u0432\u0438\u0434\u0435\u043D\u043D\u0430\u044F \u043E\u0448\u0438\u0431\u043A\u0430! <br> \u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u043F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435 \u0434\u0430\u043D\u043D\u044B\u0435 \u0438\u043B\u0438 \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u043F\u043E\u0437\u0436\u0435.");
+        onError == null ? void 0 : onError();
+      }
+    }).catch((err) => {
+      showMessage("\u041F\u0440\u043E\u0438\u0437\u043E\u0448\u043B\u0430 \u043E\u0448\u0438\u0431\u043A\u0430 \u043F\u0440\u0438 \u043E\u0442\u043F\u0440\u0430\u0432\u043A\u0435 \u0437\u0430\u043F\u0440\u043E\u0441\u0430! <br> \u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u043F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435 \u0438\u043D\u0442\u0435\u0440\u043D\u0435\u0442 \u0441\u043E\u0435\u0434\u0438\u043D\u0435\u043D\u0438\u0435 \u0438\u043B\u0438 \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u043F\u043E\u0437\u0436\u0435.");
+      onError == null ? void 0 : onError();
+      console.error(err);
+    }).then(() => {
+      onEnd == null ? void 0 : onEnd();
+    });
+  };
+  var checkField = (field, limit, counter, counterValue, submit, isInput) => {
+    let count = field.value.length;
+    if (count > limit) {
+      field.value = field.value.slice(0, limit);
+      count = limit;
+    }
+    if (count > 0) {
+      submit.disabled = false;
+    } else {
+      submit.disabled = true;
+    }
+    if (count >= limit) {
+      counter.classList.add("error");
+    } else {
+      counter.classList.remove("error");
+    }
+    counterValue.innerHTML = getNumberFormat(count);
+    if (isInput) {
+      localStorage.setItem(field.name, field.value);
+    }
+  };
+  var bindForm = (form, check, result) => {
+    const field = form.querySelector("[data-field]");
+    const counter = form.querySelector("[data-counter]");
+    const counterValue = form.querySelector("[data-counter-value]");
+    const submit = form.querySelector('[type="submit"]');
+    const url = form.action;
+    if (!field || !url)
+      return;
+    const limit = getNumber(field.getAttribute("data-limit"));
+    field.value = localStorage.getItem(field.name) || "";
+    checkField(field, limit, counter, counterValue, submit);
+    field.addEventListener("input", () => {
+      checkField(field, limit, counter, counterValue, submit, true);
+    });
+    form.addEventListener("submit", (e11) => {
+      e11.preventDefault();
+      const value = field.value;
+      const count = value.length;
+      if (count > 0 && count <= limit && !form.classList.contains("loading")) {
+        let time = 0;
+        let checking = true;
+        let hasError = false;
+        const dataRequest = new FormData(form);
+        const requestCheck = (data) => {
+          time += data.timeout;
+          const queryString = new URLSearchParams({ time }).toString();
+          const currentUrl = "".concat(url, "?").concat(queryString);
+          setTimeout(() => {
+            request({
+              url: currentUrl,
+              onSuccess,
+              onError,
+              onEnd
+            });
+          }, data.timeout * 1e3);
+        };
+        const onSuccess = (dataResponse) => {
+          if (dataResponse.completed) {
+            checking = false;
+          } else if (dataResponse.timeout) {
+            requestCheck(dataResponse);
+          } else {
+            onError();
+          }
+        };
+        const onError = () => {
+          checking = false;
+          hasError = true;
+        };
+        const onEnd = () => {
+          if (!checking) {
+            form.classList.remove("loading");
+            submit.classList.remove("loading");
+            if (hasError) {
+              check.classList.add("error");
+            } else {
+              check.classList.remove("active");
+              result.classList.add("active");
+            }
+          }
+        };
+        form.classList.remove("active");
+        check.classList.add("active");
+        form.classList.add("loading");
+        submit.classList.add("loading");
+        request({
+          url,
+          options: {
+            method: "POST",
+            body: dataRequest
+          },
+          onSuccess,
+          onError,
+          onEnd
+        });
+      }
+    });
+  };
+  var defaultDemoCheck = (block) => {
+    const form = block.querySelector("[data-form]");
+    const check = block.querySelector("[data-check]");
+    const result = block.querySelector("[data-result]");
+    const quizBlock = block.querySelector("[data-quiz]");
+    const repeat = block.querySelector("[data-repeat]");
+    bindForm(form, check, result);
+    defaultQuiz(quizBlock);
+    repeat.addEventListener("click", () => {
+      form.classList.add("active");
+      check.classList.remove("active", "error");
+    });
+  };
+  var defaultDemoCheckBlocks = () => {
+    document.querySelectorAll(".js-demo-check").forEach(defaultDemoCheck);
   };
 
   // scripts/components/utils/content/aside.js
@@ -4627,6 +4899,7 @@
     closeElements();
     scrollById();
     catalogControl();
+    defaultDemoCheckBlocks();
     setLike();
     generateAsideContent();
     window.project.defaultElements(e11);
