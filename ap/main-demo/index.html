@@ -8,8 +8,8 @@
   <link rel="apple-touch-icon" sizes="192x192" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link href="/pages/ap/static/styles/old.css?v=12_03" type="text/css" rel="stylesheet" />
-  <link href="/pages/ap/static/styles/global-old.min.css?v=12_03" type="text/css" rel="stylesheet" />
+  <link href="/pages/ap/static/styles/old.css?v=13_03" type="text/css" rel="stylesheet" />
+  <link href="/pages/ap/static/styles/global-old.min.css?v=13_03" type="text/css" rel="stylesheet" />
 
   <title>Антиплагиат онлайн ⚡: бесплатно проверить текст на плагиат, генерацию ИИ и уникальность</title>
 
@@ -290,7 +290,7 @@
       <div class="demoCheck js-demo-check">
         <form class="demoCheck__section active" action="/ajax/forms/post/demo-check.php" data-form>
           <label class="demoCheck__field">
-            <textarea class="demoCheck__input" name="demo-text" required placeholder="Напиши или вставь текст" data-limit="200000" data-field></textarea>
+            <textarea class="demoCheck__input" name="demo-text" required placeholder="Напиши или вставь текст" data-upper-limit="200000" data-lower-limit="300" data-field></textarea>
 
             <div class="demoCheck__preview">
               <svg class="demoCheck__icon" width="64" height="64">
@@ -304,7 +304,7 @@
           </label>
 
           <div class="demoCheck__addText">
-            <p data-counter>Количество символов: <span data-counter-value>0</span> / 200 000</p>
+            <p data-counter>Количество символов: <span data-counter-value>0</span> / 200 000 <span class="demoCheck__lowerError">(введено менее 300 символов)</span></p>
             <p>Нужно проверить документ или большой текст? <a class="customLink" href="https://users.antiplagiat.ru/tariffs" target="_blank" rel="nofollow">Загрузи его в&nbsp;личном кабинете</a></p>
           </div>
 
@@ -473,7 +473,7 @@
                 <div class="quiz__title">Поздравляем!</div>
                 <div class="quiz__subtitle">Ты&nbsp;ответил правильно на&nbsp;все вопросы! <br> Твой промокод на&nbsp;скидку <b>&minus;20%</b> на&nbsp;первую проверку</div>
                 <div class="quiz__buttons">
-                  <div class="customButton customButton_green customButton_copy js-copy-string" data-copied-cookie="{&quot;name&quot;:&quot;demo_promo_copied&quot;,&quot;value&quot;:&quot;5cf3f90675d5ba70a87bb9f8392cdca7&quot;}" data-text="Промокод скопирован" data-value="NEWBIE20">
+                  <div class="customButton customButton_green customButton_copy js-copy-string" data-copied-cookie="{&quot;name&quot;:&quot;demo_promo_copied&quot;,&quot;value&quot;:&quot;39c3962cdc06d9ccb62255b218cccf5e&quot;}" data-text="Промокод скопирован" data-value="NEWBIE20">
                     NEWBIE20
                     <svg width="20" height="20">
                       <use href="/pages/ap/static/images/icons/sprite-demo.svg#copy"></use>
@@ -498,7 +498,7 @@
               <div class="page__subtitle">Но что получилось в итоге?</div>
             </div>
 
-            <a class="customButton customButton_main" href="/pages/ap/result/?id=5cf3f90675d5ba70a87bb9f8392cdca7">Узнать результаты</a>
+            <a class="customButton customButton_main" href="/pages/result/?id=39c3962cdc06d9ccb62255b218cccf5e">Узнать результаты</a>
           </div>
 
           <div class="demoCheck__resultImage">
@@ -1028,7 +1028,7 @@
     </div>
   </footer>
 
-  <script type="text/javascript" src="/pages/ap/static/scripts/global.min.js?v=12_03"></script>
+  <script type="text/javascript" src="/pages/ap/static/scripts/global.min.js?v=13_03"></script>
 </body>
 
 </html>

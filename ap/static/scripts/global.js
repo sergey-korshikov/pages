@@ -4682,13 +4682,18 @@
     let currentStep = 0;
     steps.forEach((step) => {
       const btnNext = step.querySelector('[type="submit"]');
-      step.addEventListener("input", () => {
+      step.addEventListener("input", (e11) => {
         if (!btnNext)
           return;
         if (validation(step)) {
           btnNext.disabled = false;
         } else {
           btnNext.disabled = true;
+          if (e11.target.getAttribute("type") === "radio" && e11.target.checked) {
+            setTimeout(() => {
+              e11.target.checked = false;
+            }, 200);
+          }
         }
       });
       step.addEventListener("submit", (e11) => {
@@ -4735,24 +4740,25 @@
       onEnd == null ? void 0 : onEnd();
     });
   };
-  var checkField = (field, limit, counter, counterValue, submit, isInput) => {
+  var checkField = (field, lowerLimit, upperLimit, counter, counterValue, submit, action) => {
     let count = field.value.length;
-    if (count > limit) {
-      field.value = field.value.slice(0, limit);
-      count = limit;
-    }
-    if (count > 0) {
-      submit.disabled = false;
-    } else {
-      submit.disabled = true;
-    }
-    if (count >= limit) {
-      counter.classList.add("error");
-    } else {
-      counter.classList.remove("error");
+    if (count > upperLimit) {
+      field.value = field.value.slice(0, upperLimit);
+      count = upperLimit;
     }
     counterValue.innerHTML = getNumberFormat(count);
-    if (isInput) {
+    if (count >= lowerLimit && count <= upperLimit) {
+      submit.disabled = false;
+      counter.classList.remove("error", "error_lower");
+    } else if (action === "submit") {
+      field.focus();
+      submit.disabled = true;
+      counter.classList.add("error");
+      if (count < lowerLimit) {
+        counter.classList.add("error_lower");
+      }
+    }
+    if (action === "input") {
       localStorage.setItem(field.name, field.value);
     }
   };
@@ -4764,17 +4770,19 @@
     const url = form.action;
     if (!field || !url)
       return;
-    const limit = getNumber(field.getAttribute("data-limit"));
+    const lowerLimit = getNumber(field.getAttribute("data-lower-limit")) || 0;
+    const upperLimit = getNumber(field.getAttribute("data-upper-limit")) || 2e5;
     field.value = localStorage.getItem(field.name) || "";
-    checkField(field, limit, counter, counterValue, submit);
+    checkField(field, lowerLimit, upperLimit, counter, counterValue, submit, "init");
     field.addEventListener("input", () => {
-      checkField(field, limit, counter, counterValue, submit, true);
+      checkField(field, lowerLimit, upperLimit, counter, counterValue, submit, "input");
     });
     form.addEventListener("submit", (e11) => {
       e11.preventDefault();
       const value = field.value;
       const count = value.length;
-      if (count > 0 && count <= limit && !form.classList.contains("loading")) {
+      checkField(field, lowerLimit, upperLimit, counter, counterValue, submit, "submit");
+      if (count >= lowerLimit && count <= upperLimit && !form.classList.contains("loading")) {
         let time = 0;
         let checking = true;
         let hasError = false;
