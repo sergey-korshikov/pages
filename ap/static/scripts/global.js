@@ -4478,9 +4478,10 @@
     requiredInputs.forEach((input) => {
       const value = input.value.trim();
       const type = input.getAttribute("data-required");
+      const errorValue = input.getAttribute("data-error-message") || "\u042D\u0442\u043E \u043F\u043E\u043B\u0435 \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u043E \u043A&nbsp;\u0437\u0430\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u044E";
       if (!value) {
         result = false;
-        viewErrorInput(input, "\u042D\u0442\u043E \u043F\u043E\u043B\u0435 \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u043E \u043A&nbsp;\u0437\u0430\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u044E");
+        viewErrorInput(input, errorValue);
       }
       if (value && type === "email") {
         const regex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;

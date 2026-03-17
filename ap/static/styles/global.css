@@ -4654,8 +4654,9 @@ a#backToTop:disabled i {
 }
 
 .formInputError {
-  font-size: 14px;
-  line-height: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
   color: var(--color-red);
   margin-top: 4px;
 }
@@ -5085,22 +5086,21 @@ a#backToTop:disabled i {
 
 .frontBanner__slider {
   margin-top: 48px;
-  padding-top: 24px;
 }
 .frontBanner__slider .swiper-slide {
   width: 664px;
-  padding: 0 12px;
+  padding: 24px 12px 40px;
 }
 @media screen and (max-width: 1259px) {
   .frontBanner__slider .swiper-slide {
     width: 656px;
-    padding: 0 8px;
+    padding: 24px 8px 32px;
   }
 }
 @media screen and (max-width: 767px) {
   .frontBanner__slider .swiper-slide {
     width: 416px;
-    padding: 0 4px;
+    padding: 24px 4px 24px;
   }
 }
 @media screen and (max-width: 439px) {
@@ -5113,6 +5113,9 @@ a#backToTop:disabled i {
     width: 288px;
   }
 }
+.frontBanner__slider .swiper-footer {
+  margin-top: 0 !important;
+}
 @media screen and (max-width: 1259px) {
   .frontBanner__slider {
     margin-top: 40px;
@@ -5121,13 +5124,13 @@ a#backToTop:disabled i {
 @media screen and (max-width: 767px) {
   .frontBanner__slider {
     margin-top: 0;
-    padding-top: 24px;
   }
 }
 
 .frontBanner__slide {
   max-width: 100%;
   border-radius: 12px;
+  transition: box-shadow 0.2s ease-in-out;
   position: relative;
   overflow: hidden;
   display: block;
@@ -5137,23 +5140,6 @@ a#backToTop:disabled i {
   height: auto;
   max-width: 100%;
   display: block;
-}
-.frontBanner__slide_picture::before {
-  content: "";
-  transition: opacity 0.2s ease-in-out;
-  background: var(--color-text);
-  position: absolute;
-  opacity: 0;
-  z-index: 1;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  top: 0;
-}
-@media (hover: hover) and (pointer: fine) {
-  .frontBanner__slide_picture:hover::before {
-    opacity: 0.2;
-  }
 }
 .frontBanner__slide_video::before {
   content: "";
@@ -5189,7 +5175,17 @@ a#backToTop:disabled i {
 }
 @media (hover: hover) and (pointer: fine) {
   .frontBanner__slide_video:hover svg {
-    transform: translate(-50%, -50%) scale(1.2);
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .frontBanner__slide:hover {
+    box-shadow: 0 15px 33px 0 rgba(0, 36, 107, 0.1);
+  }
+}
+@media screen and (hover: hover) and (pointer: fine) and (max-width: 1259px) {
+  .frontBanner__slide:hover {
+    box-shadow: 0 15px 24px 0 rgba(0, 36, 107, 0.1);
   }
 }
 
