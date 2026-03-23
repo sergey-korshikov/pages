@@ -9843,7 +9843,7 @@
   }
 
   // scripts/components/sliders/main.js
-  var bindSliderMain = () => {
+  var bindMainSlider = () => {
     const sliders = document.querySelectorAll(".js-slider-main");
     sliders.forEach((slider) => {
       let object;
@@ -9877,24 +9877,37 @@
         }
       });
     });
+    N.bind(".js-slider-main [data-fancybox]", {
+      placeFocusBack: false,
+      // Отключаем захват фокуса внутри попапа
+      // trapFocus: false,
+      // Отключаем автофокус на первый элемент при открытии (опционально)
+      // autoFocus: false,
+      zoomEffect: false
+      // hash: false
+    });
   };
 
-  // scripts/components/sliders/partners.js
-  var bindSliderPartners = () => {
-    const sliders = document.querySelectorAll(".js-front-partners");
+  // scripts/components/sliders/add.js
+  var bindAddSlider = () => {
+    const sliders = document.querySelectorAll(".js-front-slider-add");
     sliders.forEach((slider) => {
       let object;
       const swiper = slider.querySelector(".swiper");
       const prevEl = slider.querySelector("[data-button-prev]");
       const nextEl = slider.querySelector("[data-button-next]");
+      const isLoop = slider.hasAttribute("data-loop");
+      const initial = +slider.getAttribute("data-initial");
       object = new Swiper(swiper, {
         modules: [
           Navigation,
           Pagination
         ],
+        initialSlide: initial,
         slidesPerView: "auto",
         centeredSlides: true,
-        loop: true,
+        centeredSlidesBounds: false,
+        loop: isLoop,
         navigation: {
           nextEl,
           prevEl
@@ -9925,8 +9938,8 @@
     bindCreateContentAside();
     bindDemoChecks();
     bindCatalogControls();
-    bindSliderMain();
-    bindSliderPartners();
+    bindMainSlider();
+    bindAddSlider();
     window.project.defaultElements(e11);
   };
 
