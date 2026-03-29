@@ -1892,6 +1892,7 @@ template {
 
 :root {
   --color-blue: #216cff;
+  --color-blue-dark: #1F5CD2;
   --color-blue-hover: #1E61E6;
   --color-blue-active: #1A56CC;
   --color-blue-disabled: #90b6ff;
@@ -2475,6 +2476,7 @@ a#backToTop:disabled i {
   line-height: 1.2;
   font-weight: 600;
   text-align: center;
+  color: var(--color-text);
 }
 @media screen and (max-width: 767px) {
   .swiper-counter {
@@ -2576,6 +2578,7 @@ a#backToTop:disabled i {
 
 .page__main {
   flex-grow: 1;
+  font-family: Inter, sans-serif;
 }
 
 .page__footer {
@@ -4246,6 +4249,9 @@ a#backToTop:disabled i {
   visibility: visible;
   opacity: 1;
 }
+.demoCheck__input.error {
+  border-color: var(--color-red);
+}
 @media screen and (max-width: 1259px) {
   .demoCheck__input {
     border-radius: 32px;
@@ -5244,7 +5250,7 @@ a#backToTop:disabled i {
   font-size: 20px;
   line-height: 1.2;
   font-weight: 600;
-  color: var(--color-blue);
+  color: var(--color-blue-dark);
   background: var(--color-blue-active-light);
   display: inline-block;
   border-radius: 16px;
@@ -6234,14 +6240,9 @@ a#backToTop:disabled i {
 }
 
 .frontConsulting__item {
-  padding: 32px;
+  padding: 32px 40px;
   border-radius: 40px;
   background: var(--color-white);
-}
-@media screen and (max-width: 1259px) {
-  .frontConsulting__item {
-    border-radius: 32px;
-  }
 }
 @media screen and (max-width: 767px) {
   .frontConsulting__item {
@@ -6600,7 +6601,7 @@ a#backToTop:disabled i {
   font-size: 12px;
   font-weight: 500;
   line-height: 1.25;
-  color: var(--color-placeholder);
+  color: var(--color-text);
   padding: 8px 24px 24px;
   margin-top: auto;
 }
@@ -6730,6 +6731,7 @@ a#backToTop:disabled i {
 .resultDetails__title {
   font-size: 32px;
   font-weight: 700;
+  line-height: 36px;
 }
 .resultDetails__title span {
   color: var(--color-red);
@@ -6737,6 +6739,7 @@ a#backToTop:disabled i {
 @media screen and (max-width: 1259px) {
   .resultDetails__title {
     font-size: 24px;
+    line-height: 28px;
   }
 }
 

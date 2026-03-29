@@ -4754,12 +4754,14 @@
     } else if (action === "submit") {
       field.focus();
       submit.disabled = true;
+      field.classList.add("error");
       counter.classList.add("error");
       if (count < lowerLimit) {
         counter.classList.add("error_lower");
       }
     }
     if (action === "input") {
+      field.classList.remove("error");
       localStorage.setItem(field.name, field.value);
     }
   };
