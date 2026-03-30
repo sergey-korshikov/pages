@@ -9885,7 +9885,8 @@
       // trapFocus: false,
       // Отключаем автофокус на первый элемент при открытии (опционально)
       // autoFocus: false,
-      zoomEffect: false
+      zoomEffect: false,
+      zoom: false
       // hash: false
     });
   };
