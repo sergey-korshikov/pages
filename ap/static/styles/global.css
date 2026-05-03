@@ -7053,7 +7053,6 @@ a#backToTop:disabled i {
   padding: 50px 40px 50px 386px;
   border-radius: 40px;
   position: relative;
-  min-height: 180px;
 }
 .resultPromo img {
   position: absolute;
@@ -7079,7 +7078,6 @@ a#backToTop:disabled i {
 @media screen and (max-width: 991px) {
   .resultPromo {
     gap: 24px;
-    min-height: auto;
     padding: 50px 24px 50px 336px;
   }
   .resultPromo img {
