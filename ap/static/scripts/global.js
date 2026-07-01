@@ -7912,13 +7912,13 @@
           const regex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
           if (!regex.test(value)) {
             result = false;
-            setErrorValue(input, "\u0417\u0430\u043F\u043E\u043B\u043D\u0438\u0442\u0435 \u043F\u043E\u043B\u0435 \u0432&nbsp;\u0432\u0438\u0434\u0435 _____@____.__");
+            setErrorValue(input, "\u0423\u043A\u0430\u0436\u0438\u0442\u0435 email \u0432&nbsp;\u0432\u0438\u0434\u0435 _____@____.__");
           }
         }
         if (value && type === "phone") {
           if (!phoneMask.masked.isComplete) {
             result = false;
-            setErrorValue(input, "\u0417\u0430\u043F\u043E\u043B\u043D\u0438\u0442\u0435 \u043F\u043E\u043B\u0435 \u0432&nbsp;\u0432\u0438\u0434\u0435 +7 (000) 000 00-00");
+            setErrorValue(input, "\u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u043D\u043E\u043C\u0435\u0440 \u0442\u0435\u043B\u0435\u0444\u043E\u043D\u0430 \u0432&nbsp;\u0432\u0438\u0434\u0435 +7 (000) 000 00-00");
           }
         }
       }
