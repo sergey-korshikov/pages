@@ -2004,7 +2004,7 @@ a#backToTop:disabled i {
 .customButton_main:active {
   background: var(--color-blue-active);
 }
-.customButton_main:disabled {
+.customButton_main.disabled, .customButton_main:disabled {
   cursor: default;
   color: var(--color-white);
   background: var(--color-blue-disabled);
@@ -2035,7 +2035,7 @@ a#backToTop:disabled i {
 .customButton_whtBorder:active {
   background: var(--color-blue-active-light);
 }
-.customButton_whtBorder:disabled {
+.customButton_whtBorder.disabled, .customButton_whtBorder:disabled {
   cursor: default !important;
   color: var(--color-grey) !important;
   background: var(--color-white) !important;
@@ -2055,7 +2055,7 @@ a#backToTop:disabled i {
 .customButton_green:active {
   background: var(--color-green-active);
 }
-.customButton_green:disabled {
+.customButton_green.disabled, .customButton_green:disabled {
   cursor: default;
   color: var(--color-white);
   background: var(--color-green-disabled);
@@ -2089,7 +2089,7 @@ a#backToTop:disabled i {
 .customButton_cross:active {
   background: var(--color-blue-active-light);
 }
-.customButton_cross:disabled {
+.customButton_cross.disabled, .customButton_cross:disabled {
   cursor: default !important;
   background: var(--color-white) !important;
 }
@@ -2112,7 +2112,7 @@ a#backToTop:disabled i {
 .customButton_arrow:active {
   background: var(--color-blue-active-light);
 }
-.customButton_arrow:disabled {
+.customButton_arrow.disabled, .customButton_arrow:disabled {
   cursor: default !important;
   color: var(--color-grey) !important;
   background: var(--color-white) !important;
@@ -2151,7 +2151,7 @@ a#backToTop:disabled i {
 .customLink:active {
   color: var(--color-blue-active);
 }
-.customLink:disabled {
+.customLink.disabled, .customLink:disabled {
   color: var(--color-grey);
 }
 .customLink:focus {
@@ -4356,6 +4356,123 @@ a#backToTop:disabled i {
   }
 }
 
+.middleForm {
+  background: var(--color-white);
+  border-radius: 40px;
+  padding: 40px;
+  margin: auto;
+}
+.middleForm_size-1 {
+  max-width: 580px;
+}
+@media screen and (max-width: 1259px) {
+  .middleForm {
+    padding: 32px;
+  }
+}
+@media screen and (max-width: 599px) {
+  .middleForm {
+    border-radius: 32px;
+    padding: 24px;
+  }
+}
+
+.middleForm__title {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 36px;
+  text-align: center;
+}
+@media screen and (max-width: 599px) {
+  .middleForm__title {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 28px;
+  }
+}
+
+.middleForm__text {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 28px;
+  text-align: center;
+  margin-top: 8px;
+}
+@media screen and (max-width: 599px) {
+  .middleForm__text {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22px;
+  }
+}
+
+.middleForm__form {
+  margin-top: 40px;
+}
+@media screen and (max-width: 1259px) {
+  .middleForm__form {
+    margin-top: 32px;
+  }
+}
+
+.verticalForm {
+  position: relative;
+}
+.verticalForm.success > *:not(.formResult) {
+  display: none;
+}
+
+.verticalForm__field {
+  display: block;
+  margin-top: 12px;
+}
+.verticalForm__field:first-child {
+  margin-top: 0;
+}
+
+.verticalForm__label {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  color: var(--color-placeholder);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.verticalForm__errors {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  text-align: center;
+  color: var(--color-red);
+  margin-top: 12px;
+  display: none;
+}
+.verticalForm__errors.show {
+  display: block;
+}
+
+.verticalForm__submit {
+  margin-top: 40px;
+}
+.verticalForm__submit button {
+  width: 100%;
+}
+@media screen and (max-width: 1259px) {
+  .verticalForm__submit {
+    margin-top: 32px;
+  }
+}
+
+.verticalForm__sign {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  text-align: center;
+  color: var(--color-placeholder);
+  margin-top: 8px;
+}
+
 .formGrid {
   display: grid;
   grid-gap: 8px;
@@ -4417,22 +4534,16 @@ a#backToTop:disabled i {
   .formInput:hover {
     border-color: var(--color-blue);
   }
-  .formInput:hover::-moz-placeholder {
-    color: var(--color-placeholder);
-  }
-  .formInput:hover::placeholder {
-    color: var(--color-placeholder);
-  }
 }
 .formInput:focus {
   outline: none !important;
   border-color: var(--color-blue);
 }
 .formInput:focus::-moz-placeholder {
-  color: var(--color-placeholder);
+  color: transparent;
 }
 .formInput:focus::placeholder {
-  color: var(--color-placeholder);
+  color: transparent;
 }
 .formInput.error {
   border-color: var(--color-red);
