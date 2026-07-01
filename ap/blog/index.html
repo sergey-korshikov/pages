@@ -8,8 +8,9 @@
   <link rel="apple-touch-icon" sizes="192x192" href="/pages/ap/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/pages/ap/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/pages/ap/favicon-16x16.png">
-  <link href="/pages/ap/static/styles/old.css?v=14_11_25" type="text/css" rel="stylesheet" />
-  <link href="/pages/ap/static/styles/global-old.min.css?v=14_11_25" type="text/css" rel="stylesheet" />
+  <link href="/pages/ap/static/styles/old.css?v=01_07" type="text/css" rel="stylesheet" />
+  <link href="/pages/ap/static/styles/global-old.min.css?v=01_07" type="text/css" rel="stylesheet" />
+
 
   <title>Полезные материалы от Антиплагиат</title>
 
@@ -295,6 +296,43 @@
       </div>
     </div>
     <div class="page__container page__section">
+      <div class="middleForm middleForm_size-1">
+        <div class="middleForm__title">Не&nbsp;знаете, с&nbsp;чего начать регламент по&nbsp;ИИ?</div>
+
+        <div class="middleForm__text">Расскажем и&nbsp;поможем подготовить документ под ваш вуз</div>
+
+        <form class="middleForm__form verticalForm js-default-form" action="/ajax/forms/post/consultation.php" method="post">
+          <label class="verticalForm__field">
+            <span class="verticalForm__label">ФИО</span>
+            <input class="formInput" type="text" name="name" autocomplete="name" data-required="text" data-error-message="Укажите ваше имя" placeholder="Иванова Анна Петровна">
+          </label>
+
+          <label class="verticalForm__field">
+            <span class="verticalForm__label">Рабочая почта</span>
+            <input class="formInput" type="email" name="email" autocomplete="email" data-required="email" data-error-message="Укажите вашу рабочую почту" placeholder="anna@univer.ru">
+          </label>
+
+          <label class="verticalForm__field">
+            <span class="verticalForm__label">Телефон</span>
+            <input class="formInput" type="phone" name="phone" autocomplete="phone" data-required="phone" data-error-message="Укажите ваш телефон" placeholder="+7 (900) 000-00-00">
+          </label>
+
+          <label class="verticalForm__field">
+            <span class="verticalForm__label">Организация</span>
+            <input class="formInput" type="text" name="organization" autocomplete="organization" placeholder="МГУ им. Ломоносова">
+          </label>
+
+          <div class="verticalForm__errors" data-errors></div>
+
+          <div class="verticalForm__submit">
+            <button class="customButton customButton_main _middle" type="submit">Отправить заявку</button>
+          </div>
+
+          <div class="verticalForm__sign">Нажимая на&nbsp;кнопку вы&nbsp;даёте согласие на&nbsp;обработку <a class="customLink" href="/documents/" rel="nofollow">персональных данных</a></div>
+        </form>
+      </div>
+    </div>
+    <div class="page__container page__section">
       <div class="sectionForm">
         <div class="sectionForm__info">
           <div class="sectionForm__title">Читайте самые свежие статьи!</div>
@@ -389,7 +427,8 @@
     </div>
   </footer>
 
-  <script type="text/javascript" src="/pages/ap/static/scripts/global.min.js?v=14_11_25"></script>
+  <script type="text/javascript" src="/pages/ap/static/scripts/global.min.js?v=01_07"></script>
+
 </body>
 
 </html>
