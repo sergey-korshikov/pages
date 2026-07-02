@@ -7880,7 +7880,7 @@
       input.parentElement.insertAdjacentHTML("beforeend", '<div class="formInputError" data-error>' + errorValue + "</div>");
     }
   };
-  var validateForm = (form, phoneMask, fieldErrors, isSubmit) => {
+  var validateForm = (form, phoneMask, fieldErrors, isSubmit, isUpdFocus) => {
     let commonError = "";
     let focusInput = null;
     let result = true;
@@ -7933,13 +7933,16 @@
       fieldErrors.innerHTML = commonError;
       fieldErrors.classList.add("show");
     }
-    focusInput == null ? void 0 : focusInput.focus();
+    if (isUpdFocus) {
+      focusInput == null ? void 0 : focusInput.focus();
+    }
     return result;
   };
   var bindForm = (form) => {
     const submitButton = form.querySelector('[type="submit"]');
     const phoneInput = form.querySelector('[type="phone"]');
     const fieldErrors = form.querySelector("[data-errors]");
+    let isSubmitted = false;
     if (form.classList.contains("init"))
       return;
     form.classList.add("init");
@@ -7949,20 +7952,24 @@
     form.addEventListener("input", (e11) => {
       const input = e11.target;
       const errors = input.parentElement.querySelectorAll("[data-error]");
-      input.classList.remove("error");
       errors.forEach((error) => error.remove());
+      input.classList.remove("error");
       if (fieldErrors) {
         fieldErrors.innerHTML = "";
         fieldErrors.classList.remove("show");
+      }
+      if (isSubmitted) {
+        validateForm(form, phoneMask, fieldErrors, true, false);
       }
       checkSubmit(form);
     });
     form.addEventListener("submit", (e11) => {
       e11.preventDefault();
+      isSubmitted = true;
       if (form.classList.contains("loading"))
         return;
       viewResult(form);
-      if (!validateForm(form, phoneMask, fieldErrors, true)) {
+      if (!validateForm(form, phoneMask, fieldErrors, true, true)) {
         checkSubmit(form);
         return;
       }
