@@ -8125,6 +8125,74 @@
     });
   };
 
+  // scripts/components/utils/doubleCards.js
+  var bindDoubleCards = () => {
+    const cards = document.querySelectorAll(".js-double-card");
+    cards.forEach((card) => {
+      const controls = card.querySelectorAll("[data-control]");
+      controls.forEach((control) => {
+        control.addEventListener("click", () => {
+          card.classList.toggle("active");
+        });
+      });
+    });
+  };
+
+  // scripts/components/utils/frontTabs.js
+  var bindFrontTabs = () => {
+    const blockTabs = document.querySelector(".js-page-tabs");
+    const tabs = document.querySelectorAll(".js-page-tabs [data-href]");
+    const targets = [];
+    tabs.forEach((tab) => {
+      const selector = tab.getAttribute("data-href");
+      const targetElement = document.querySelector(selector);
+      if (targetElement) {
+        targets.push(targetElement);
+      }
+    });
+    if (targets[0]) {
+      const observerOptions = {
+        root: null,
+        rootMargin: "-20% 0px -60% 0px",
+        threshold: 0
+      };
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          const id = entry.target.getAttribute("id");
+          const relatedTab = document.querySelector('[data-href="#'.concat(id, '"]'));
+          if (!relatedTab)
+            return;
+          if (entry.isIntersecting) {
+            tabs.forEach((tab) => {
+              if (tab !== relatedTab)
+                tab.classList.remove("active");
+            });
+            relatedTab.classList.add("active");
+          } else {
+            if (relatedTab.classList.contains("active")) {
+              relatedTab.classList.remove("active");
+            }
+          }
+        });
+      }, observerOptions);
+      targets.forEach((target) => observer.observe(target));
+    }
+    if (blockTabs) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          entry.target.classList.toggle("active", entry.intersectionRatio < 1);
+        },
+        {
+          // Важно: rootMargin сдвигает зону отслеживания на 1 пиксель вверх.
+          // Благодаря этому триггер срабатывает в момент касания top: 0
+          rootMargin: "-1px 0px 0px 0px",
+          threshold: [1]
+        }
+      );
+      observer.observe(blockTabs);
+    }
+  };
+
   // scripts/components/catalog.js
   var bindCatalogControls = () => {
     document.querySelectorAll(".js-catalog-control").forEach(init);
@@ -8178,6 +8246,8 @@
     bindSetLike();
     bindScrollById();
     bindCreateContentAside();
+    bindFrontTabs();
+    bindDoubleCards();
     bindCatalogControls();
     window.project.defaultElements(e11);
   };
